@@ -26,7 +26,7 @@ def Load_models():
     return Resnet_Cover_Classifier_model, Serial_Scanner_model
 
 def normalize_path(path):
-    """Chuẩn hóa đường dẫn file, chuyển dấu \ thành / để tránh lỗi hệ điều hành."""
+    #"""Chuẩn hóa đường dẫn file, chuyển dấu \ thành / để tránh lỗi hệ điều hành."""
     return os.path.abspath(path).replace("\\", "/")  # Chuyển toàn bộ \ thành /
 
 def process_pdf(file_path, resnet_model, yolo_model, output_folder):
