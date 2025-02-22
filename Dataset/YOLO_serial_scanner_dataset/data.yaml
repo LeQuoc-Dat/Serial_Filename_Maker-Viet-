@@ -1,0 +1,5 @@
+
+train: os.path.abspath("SERIAL_FILENAME_MAKER\Dataset\YOLO_serial_scanner_dataset\images\train")
+val:   os.path.abspath("SERIAL_FILENAME_MAKER\Dataset\YOLO_serial_scanner_dataset\images\val")
+nc: 1
+names: ['seri_number']
