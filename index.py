@@ -11,12 +11,14 @@ from Serial_scanner import load_Serial_Scanner_model, detect_seri, extract_seri
 exit_flag = threading.Event()  # Cờ để kiểm tra trạng thái thoát
 
 def on_esc():
+    """Hàm xử lý khi nhấn ESC để thoát chương trình."""
     exit_flag.set()
     print("\nNhấn Enter để xác nhận thoát chương trình!")
 
 kb.add_hotkey("esc", on_esc)
 
 def Load_models():
+    """Hàm tải mô hình nhận diện bìa và số seri."""
     resnet_cover_classifier_model_patch = "models/resnet_cover_classifier.pth"
     serial_scanner_model_patch = "models/yolov8_best.pt"
     Resnet_Cover_Classifier_model = load_Resnet_Classifier_model(resnet_cover_classifier_model_patch)
@@ -24,9 +26,11 @@ def Load_models():
     return Resnet_Cover_Classifier_model, Serial_Scanner_model
 
 def normalize_path(path):
+    """Chuẩn hóa đường dẫn file, chuyển dấu \ thành / để tránh lỗi hệ điều hành."""
     return os.path.abspath(path).replace("\\", "/")  # Chuyển toàn bộ \ thành /
 
 def process_pdf(file_path, resnet_model, yolo_model, output_folder):
+    """Xử lý file PDF: tách ảnh, nhận diện bìa, trích xuất số seri và đổi tên file."""
     file_path = normalize_path(file_path)
 
     if not os.path.isfile(file_path):
@@ -67,10 +71,13 @@ def process_pdf(file_path, resnet_model, yolo_model, output_folder):
         print(f"⚠ Lỗi không xác định: {e}")
 
 def Get_output_folder():
+    """Nhập đường dẫn thư mục đầu ra hoặc dùng mặc định."""
     output_folder_path = input("Nhập đường dẫn thư mục bạn muốn lưu (hoặc để trống để dùng thư mục mặc định): ").strip()
     return output_folder_path if output_folder_path else "Processed_files"
 
+
 def input_thread(input_queue):
+    """Luồng nhập dữ liệu liên tục từ bàn phím."""
     last_input = None  
     while not exit_flag.is_set():
         try:
@@ -85,7 +92,7 @@ def input_thread(input_queue):
 
 
 def main_loop():
-
+    """Hàm để chạy chương trình chính"""
     print("🚀 Đang khởi động chương trình...")
     resnet_model, yolo_model = Load_models()
 
