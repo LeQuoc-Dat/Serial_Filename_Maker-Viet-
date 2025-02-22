@@ -39,8 +39,10 @@ def process_pdf(file_path, resnet_model, yolo_model):
     File_with_Serial_number_name = "".join(
         c for c in File_with_Serial_number_name if c.isalnum() or c in (" ", "_", "-")
     ) + ".pdf"
-
-    new_path = os.path.join(os.path.dirname(file_path), File_with_Serial_number_name)
+    output_folder = "Processed_Files"  # Thư mục đích
+    os.makedirs(output_folder, exist_ok=True)  # Tạo thư mục nếu chưa có
+    new_path = os.path.join(output_folder, File_with_Serial_number_name)
+    
 
     try:
         os.rename(file_path, new_path)
@@ -51,18 +53,15 @@ def process_pdf(file_path, resnet_model, yolo_model):
 if __name__ == "__main__":
     print("Đang khởi động chương trình...")
     resnet_model, yolo_model = LoadModel()
-
+    
     if resnet_model and yolo_model:
-        file_PDF_path = input("Hãy nhập đường dẫn của file PDF: ").strip()
-        process_pdf(file_PDF_path, resnet_model, yolo_model)
+        print("<--------- Nhập 'q' hoặc 'exit' vào đường dẫn để dừng chương trình --------->")
+        while True:
+          
+          file_PDF_path = input("Hãy nhập đường dẫn của file PDF: ").strip()
+          if file_PDF_path.lower() in ["q", "exit"]:
+              print("Dừng chương trình... ")
+              break
+          process_pdf(file_PDF_path, resnet_model, yolo_model)
     else:
         print("Lỗi: Chương trình không thể chạy do lỗi tải mô hình.")
-    
-    
-
-
-   
-    
-   
-    
-    
