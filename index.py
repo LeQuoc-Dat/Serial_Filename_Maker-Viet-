@@ -1,9 +1,10 @@
+print("🚀 Đang khởi động chương trình...\n")
 import os
 import keyboard as kb
 import shutil
 import threading
 import time
-import sys
+
 
 from Resnet_cover_classifier import load_Resnet_Classifier_model, pdf_to_images, predict_cover, convert_pil_to_opencv
 from Serial_scanner import load_Serial_Scanner_model, detect_seri, extract_seri
@@ -93,16 +94,14 @@ def input_thread(input_queue):
 
 def main_loop():
     """Hàm để chạy chương trình chính"""
-    print("🚀 Đang khởi động chương trình...")
     resnet_model, yolo_model = Load_models()
 
     if not resnet_model or not yolo_model:
         print("❌ Lỗi: Chương trình không thể chạy do lỗi tải mô hình.")
         return
-
-    output_folder = Get_output_folder()
+    print("\n ---- Khởi động hoàn tất ---- \n")
     print("<--------- Nhấn phím 'ESC' để dừng chương trình --------->")
-
+    output_folder = Get_output_folder()
     input_queue = []
     thread = threading.Thread(target=input_thread, args=(input_queue,), daemon=True)
     thread.start()
