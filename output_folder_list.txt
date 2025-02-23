@@ -1,0 +1,4 @@
+C:/FACE_EMOTION
+C:/FACE_EMOTION/__pycache__
+C:/IT/AI
+C:/IT/AI/email-classification-master
